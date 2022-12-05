@@ -4,7 +4,7 @@ import { useState } from "react";
 function Control_settings() {
   const [drain, setDrain] = useState(true);
   const [fill, setFill] = useState(false);
-  const [stop, setStop] = useState(false);
+  // const [stop, setStop] = useState(false);
 
   const handleclick = () => {
     setDrain(false);

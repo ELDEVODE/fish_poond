@@ -1,27 +1,32 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import Login from './Pages/Login'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import {BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "react-auth-kit";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path:"/login",
-    element: <Login />
-  }
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//   },
+//   {
+//     path: "/login",
+//     element: <Login />,
+//   },
+// ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider
+      authType={"localstorage"}
+      authName={"_auth"}
+      cookieDomain={window.location.hostname}
+      cookieSecure={false}
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
-)
+);
