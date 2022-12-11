@@ -1,65 +1,134 @@
-import React from "react";
-import { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Switch from "react-switch";
 
 function Control_settings() {
-  const [drain, setDrain] = useState(true);
-  const [fill, setFill] = useState(false);
-  // const [stop, setStop] = useState(false);
+  // const [stop, setStop] = useState();
 
-  const handleclick = () => {
-    setDrain(false);
-    console.log(drain);
-    setFill(true);
-    console.log(fill);
+  const [vow, setVow] = useState();
+
+  useEffect(() => {
+    axios
+      .get("https://digitaltwin-fyp.herokuapp.com/api/water-level")
+      .then((response) => (setVow(response.data.waterLevel.waterLevel),console.log(response.data)))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const incrementVow = () => {
+    if (vow < 90) {
+      setVow(vow + 1);
+    }
   };
-  const handleclick2 = () => {
-    setDrain(true);
-    console.log(drain);
-    setFill(false);
-    console.log(fill);
+
+  const decrementVow = () => {
+    if (vow > 10) {
+      setVow(vow - 1);
+    }
   };
-  const handleclick3 = () => {
-    setDrain(false)
-    console.log(drain)
-    setFill(false)
-    console.log(fill)
-  }
+
+  const [fill, setFill] = useState(false);
+
+  useEffect(() => {
+    if (fill) {
+      const interval = setInterval(incrementVow, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [incrementVow]);
+
+  const handleFill = (nextChecked) => {
+    setFill(nextChecked);
+    setFill(!fill);
+    if (fill) {
+      axios
+        .post("https://digitaltwin-fyp.herokuapp.com/api/water-level", {
+          waterLevel: vow,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("first");
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const [drain, setDrain] = useState(false);
+
+  useEffect(() => {
+    if (drain) {
+      const interval = setInterval(decrementVow, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [decrementVow]);
+
+  const handleDrain = (nextChecked) => {
+    setDrain(nextChecked);
+    setDrain(!drain);
+    if (drain) {
+      axios
+        .post("https://digitaltwin-fyp.herokuapp.com/api/water-level", {
+          waterLevel: vow,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("first");
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const waterLevel = () => {
+    document.documentElement.style.setProperty(
+      "--my-height",
+      280 - (400 * vow) / 100 + "px"
+    );
+    // console.log(
+    //   getComputedStyle(document.documentElement).getPropertyValue("--my-height")
+    // );
+  };
   return (
     <>
       <div className="flex-row">
-        <h2 className="text-4xl font-bold mt-10">Controls settings</h2>
+        <h2 className="text-4xl font-bold mt-10">
+          Controls settings {waterLevel()}
+        </h2>
 
         <div className="flex flex-row justify-center">
-          {drain ? (
-            <div className="mt-5">
-              <div className="text-base">Drain</div>
-              <button onClick={handleclick} className="mx-5 csbo text-2xl mt-3">
-                on
-              </button>
-            </div>
-          ) : (
-            <div className="mt-5">
-              <div className="text-base">Drain</div>
-              <button onClick={handleclick2} className="mx-5 csb text-2xl mt-3">
-                off
-              </button>
-            </div>
-          )}
-          {fill ? (
-            <div className="mt-5">
-              <div className="text-base">Fill</div>
-              <button onClick={handleclick2} className="mx-5 mt-3 csbo text-2xl">On</button>
-            </div>
-          ) : (
-            <div className="mt-5">
-              <div className="text-base">Fill</div>
-              <button onClick={handleclick} className="mx-5 mt-3 csb text-2xl">Off</button>
-            </div>
-          )}
+          <div className="mt-5 m-5">
+            <div className="text-base mb-5">Drain</div>
+            <Switch
+              onChange={handleDrain}
+              checked={drain}
+              className="react-switch"
+              width={100}
+              height={30}
+              onColor="#2F80ED"
+            />
+          </div>
+          <div className="mt-5 m-5">
+            <div className="text-base mb-5">Fill</div>
+            <Switch
+              onChange={handleFill}
+              checked={fill}
+              className="react-switch"
+              width={100}
+              height={30}
+              onColor="#2F80ED"
+            />
+          </div>
         </div>
         <div className="mt-5">
-          <div className="text-base">Stop</div>
-          <button onClick={handleclick3} className="mx-5 mt-3 csbs text-2xl">Off</button>
+          <div className="text-base"></div>
+          <button className="mx-5 mt-3 csbw text-2xl">{vow}</button>
         </div>
       </div>
     </>

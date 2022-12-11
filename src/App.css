@@ -22,6 +22,14 @@
     border: 2px solid #ffaa83;
     border-radius: 50%;
 }
+.csbw {
+    width: 60px;
+    height: 40px;
+    color: white;
+    background: #83e2ff;
+    border: 2px solid #55c3f9;
+    border-radius: 10%;
+}
 
 
 /* Pond */
@@ -66,14 +74,14 @@
     }
   }
   
-  .input {
+  /* .input { */
     /* display: flex;
     align-items: center;
     justify-content: center; */
     /* position: absolute; */
     /* top: 200px;
     left: 200px; */
-  }
+  /* } */
   #userInput {
     height: 30px;
     width: 100px;
