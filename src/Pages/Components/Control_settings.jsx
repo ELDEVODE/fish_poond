@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import Switch from "react-switch";
 
 function Control_settings() {
-  // const [stop, setStop] = useState();
+
 
   const [vow, setVow] = useState();
 
   useEffect(() => {
     axios
       .get("https://digitaltwin-fyp.herokuapp.com/api/water-level")
-      .then((response) => (setVow(response.data.waterLevel.waterLevel),console.log(response.data)))
+      .then((response) => (setVow(response.data.waterLevel.waterLevel),console.log(response.data.waterLevel)))
       .catch((error) => console.log(error));
   }, []);
 
