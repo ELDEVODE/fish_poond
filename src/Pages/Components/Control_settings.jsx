@@ -1,16 +1,23 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Switch from "react-switch";
+import Pond from "./pond/Pond";
+import PhScale from "./scales/PhScale";
+import Temprature from "./scales/Temprature";
+import Ultrasonic from "./scales/Ultrasonic";
 
-function Control_settings() {
-
-
+function ControlSettings() {
   const [vow, setVow] = useState();
 
   useEffect(() => {
     axios
       .get("https://digitaltwin-fyp.herokuapp.com/api/water-level")
-      .then((response) => (setVow(response.data.waterLevel.waterLevel),console.log(response.data.waterLevel)))
+      .then(
+        (response) => (
+          setVow(response.data.waterLevel.waterLevel),
+          console.log(response.data.waterLevel)
+        )
+      )
       .catch((error) => console.log(error));
   }, []);
 
@@ -97,13 +104,36 @@ function Control_settings() {
   };
   return (
     <>
+    <div className="flex flex-row justify-center">
+      <Temprature />
+    </div>
+    
       <div className="flex-row">
-        <h2 className="text-4xl font-bold mt-10">
-          Controls settings {waterLevel()}
+        <h2 className="text-4xl font-bold mt-0">
+           {waterLevel()}
         </h2>
 
         <div className="flex flex-row justify-center">
+          <PhScale />
           <div className="mt-5 m-5">
+            <div className="text-base mb-5">Fill</div>
+            <Switch
+              onChange={handleFill}
+              checked={fill}
+              className="react-switch"
+              width={100}
+              height={30}
+              onColor="#2F80ED"
+              // onChange={handleDrain}
+              // checked={drain}
+              // className="react-switch"
+              // width={100}
+              // height={30}
+              // onColor="#2F80ED"
+            />
+          </div>
+          <Pond />
+          <div className="mt-96 m-5">
             <div className="text-base mb-5">Drain</div>
             <Switch
               onChange={handleDrain}
@@ -114,18 +144,9 @@ function Control_settings() {
               onColor="#2F80ED"
             />
           </div>
-          <div className="mt-5 m-5">
-            <div className="text-base mb-5">Fill</div>
-            <Switch
-              onChange={handleFill}
-              checked={fill}
-              className="react-switch"
-              width={100}
-              height={30}
-              onColor="#2F80ED"
-            />
-          </div>
+          <Ultrasonic />
         </div>
+
         <div className="mt-5">
           <div className="text-base"></div>
           <button className="mx-5 mt-3 csbw text-2xl">{vow}</button>
@@ -135,4 +156,4 @@ function Control_settings() {
   );
 }
 
-export default Control_settings;
+export default ControlSettings;

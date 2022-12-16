@@ -1,7 +1,7 @@
 import React from "react";
-import History from "./Components/History";
+// import History from "./Components/History";
 import Navbar from "./Components/Navbar";
-import DTS from "./Sections/DTS";
+// import DTS from "./Sections/DTS";
 import Hero from "./Sections/Hero";
 
 function Home() {
@@ -9,8 +9,8 @@ function Home() {
     <>
       <Navbar />
       <Hero />
-      <DTS />
-      <History />
+      {/* <DTS /> */}
+      {/* <History /> */}
     </>
   );
 }
