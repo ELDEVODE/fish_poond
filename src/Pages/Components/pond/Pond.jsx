@@ -30,7 +30,7 @@ function Pond() {
   ).getPropertyValue("--my-height");
 
   return (
-    <div className="flex-col justify-center mt-14">
+    <div className="flex-col justify-center">
       {/* <div className="flex justify-center">
         <div className="level mx-4 bg-base-content">Water Level: {variableValue}%</div>
       </div> */}

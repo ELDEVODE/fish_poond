@@ -115,7 +115,7 @@ function ControlSettings() {
 
         <div className="flex flex-row justify-center">
           <PhScale />
-          <div className="mt-5 m-5">
+          <div className="mr-5 ml-5">
             <div className="text-base mb-5">Fill</div>
             <Switch
               onChange={handleFill}
@@ -133,7 +133,7 @@ function ControlSettings() {
             />
           </div>
           <Pond />
-          <div className="mt-96 m-5">
+          <div className="mt-80 m-5">
             <div className="text-base mb-5">Drain</div>
             <Switch
               onChange={handleDrain}
