@@ -104,14 +104,15 @@ function ControlSettings() {
   };
   return (
     <>
-    <div className="flex flex-row justify-start">
-      <Temprature />
-    </div>
-    
+      <div className="flex flex-row justify-start">
+        <Temprature />
+      </div>
+      <div className="mt-5">
+        <div className="text-base"></div>
+        <button className="mx-5 mt-3 csbw text-2xl">{vow}</button>
+      </div>
       <div className="flex-row">
-        <h2 className="text-4xl font-bold mt-0">
-           {waterLevel()}
-        </h2>
+        <h2 className="text-4xl font-bold mt-0">{waterLevel()}</h2>
 
         <div className="flex flex-row justify-center">
           <PhScale />
@@ -132,6 +133,7 @@ function ControlSettings() {
               // onColor="#2F80ED"
             />
           </div>
+
           <Pond />
           <div className="mt-80 m-5">
             <div className="text-base mb-5">Drain</div>
@@ -145,11 +147,6 @@ function ControlSettings() {
             />
           </div>
           <Ultrasonic />
-        </div>
-
-        <div className="mt-5">
-          <div className="text-base"></div>
-          <button className="mx-5 mt-3 csbw text-2xl">{vow}</button>
         </div>
       </div>
     </>
