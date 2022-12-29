@@ -5,6 +5,7 @@ import socketIOClient from "socket.io-client";
 function Temprature() {
     const token = localStorage.getItem("_auth");
     const [temp, setTemp] = useState(20);
+    const [data, setData] = useState();
 
     useEffect(() => {
         const socket = socketIOClient("https://digitaltwin-fyp.herokuapp.com/", {
@@ -13,8 +14,11 @@ function Temprature() {
         socket.on("sensor", (data) => {
           // console.log(data);
           setTemp(data.temp);
+          setData(data)
         });
       }, [token]);
+
+    
 
 
   return (

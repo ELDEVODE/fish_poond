@@ -1,5 +1,6 @@
 import React from "react";
 import ControlSettings from "../Components/Control_settings";
+import Graphs from "../Components/scales/Graphs/Graphs";
 
 function Hero() {
   return (
@@ -13,6 +14,8 @@ function Hero() {
           </p>
           <ControlSettings />
           {/* <Ph_scales /> */}
+          <Graphs />
+          
         </div>
       </div>
     </div>

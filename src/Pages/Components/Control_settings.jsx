@@ -5,6 +5,7 @@ import Pond from "./pond/Pond";
 import PhScale from "./scales/PhScale";
 import Temprature from "./scales/Temprature";
 import Ultrasonic from "./scales/Ultrasonic";
+import GraphTemp from "./scales/Graphs/GraphTemp";
 
 function ControlSettings() {
   const [vow, setVow] = useState();
