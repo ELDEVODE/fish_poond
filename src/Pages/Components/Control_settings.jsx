@@ -105,18 +105,16 @@ function ControlSettings() {
   return (
     <>
       <div className="flex flex-row justify-start">
-        <Temprature />
+        
       </div>
       <div className="mt-5">
         <div className="text-base"></div>
         <button className="mx-5 mt-3 csbw text-2xl">{vow}</button>
       </div>
-      <div className="flex-row">
-        <h2 className="text-4xl font-bold mt-0">{waterLevel()}</h2>
-
-        <div className="flex flex-row justify-center">
-          <PhScale />
-          <div className="mr-5 ml-5">
+      
+      
+      <div className="flex flex-row justify-center mb-10">
+      <div className="mr-5 ml-5">
             <div className="text-base mb-5">Fill</div>
             <Switch
               onChange={handleFill}
@@ -146,6 +144,14 @@ function ControlSettings() {
               onColor="#2F80ED"
             />
           </div>
+      </div>
+
+      <div className="flex-row">
+        <h2 className="text-4xl font-bold mt-0">{waterLevel()}</h2>
+
+        <div className="flex flex-row justify-center">
+          <PhScale />
+          <Temprature />
           <Ultrasonic />
         </div>
       </div>

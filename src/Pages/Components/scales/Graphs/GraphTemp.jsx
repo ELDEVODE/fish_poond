@@ -19,7 +19,7 @@ function GraphTemp() {
       extraHeaders: { Authorization: `Bearer ${token}` },
     });
     socket.on("graph", (data) => {
-      console.log(data)
+      // console.log(data)
       setData(data);
     });
     return () => {
