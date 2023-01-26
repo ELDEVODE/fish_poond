@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import socketIOClient from "socket.io-client";
 import {
   LineChart,
   Line,
@@ -9,9 +10,20 @@ import {
   Tooltip,
 } from "recharts";
 
-import { data1 } from "./data";
 
 function GraphTby() {
+  const [data, setData] = useState(5);
+  const token = localStorage.getItem("_auth");
+
+  useEffect(() => {
+    const socket = socketIOClient("https://digitaltwin-fyp.herokuapp.com/", {
+      extraHeaders: { Authorization: `Bearer ${token}` },
+    });
+    socket.on("graph", (data) => {
+      setData(data);
+    });
+  }, [token]);
+
   return (
     <>
       <div>
@@ -19,7 +31,7 @@ function GraphTby() {
           <LineChart
             width={800}
             height={400}
-            data={data1}
+            data={data}
             margin={{
               top: 5,
               right: 30,
@@ -28,8 +40,8 @@ function GraphTby() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <Line type="monotone" dataKey="Turbidity" stroke="#8f7a5e" />
-            <XAxis dataKey="name" />
+            <Line type="monotone" dataKey="turbidity" stroke="#8f7a5e" />
+            <XAxis dataKey="time" />
             <YAxis />
             <Tooltip wrapperStyle={{ width: 100, backgroundColor: "#ccc" }} />
             <Legend />

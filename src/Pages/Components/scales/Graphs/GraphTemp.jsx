@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import socketIOClient from "socket.io-client";
 import {
   LineChart,
   Line,
@@ -7,12 +8,26 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
 
-import { data1 } from "./data";
-
 function GraphTemp() {
+  const [data, setData] = useState(5);
+  const token = localStorage.getItem("_auth");
+
+  useEffect(() => {
+    const socket = socketIOClient("https://digitaltwin-fyp.herokuapp.com/", {
+      extraHeaders: { Authorization: `Bearer ${token}` },
+    });
+    socket.on("graph", (data) => {
+      console.log(data)
+      setData(data);
+    });
+    return () => {
+      socket.off("graph");
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <div>
@@ -20,7 +35,7 @@ function GraphTemp() {
           <LineChart
             width={800}
             height={400}
-            data={data1}
+            data={data}
             margin={{
               top: 5,
               right: 30,
@@ -29,8 +44,8 @@ function GraphTemp() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <Line type="monotone" dataKey="Temperature" stroke="#f54949" />
-            <XAxis dataKey="name" />
+            <Line type="monotone" dataKey="temp" stroke="#f54949" />
+            <XAxis dataKey="time" />
             <YAxis />
             <Tooltip wrapperStyle={{ width: 100, backgroundColor: "#ccc" }} />
             <Legend />

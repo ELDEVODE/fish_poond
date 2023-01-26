@@ -15,8 +15,7 @@ function ControlSettings() {
       .get("https://digitaltwin-fyp.herokuapp.com/api/water-level")
       .then(
         (response) => (
-          setVow(response.data.waterLevel.waterLevel),
-          console.log(response.data.waterLevel)
+          setVow(response.data.waterLevel.waterLevel)
         )
       )
       .catch((error) => console.log(error));

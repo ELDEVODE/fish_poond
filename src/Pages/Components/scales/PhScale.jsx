@@ -11,7 +11,7 @@ function PhScale() {
       extraHeaders: { Authorization: `Bearer ${token}` },
     });
     socket.on("sensor", (data) => {
-      // console.log(data);
+      console.log(data);
       setPh(data.ph);
     });
   }, [token]);
